@@ -3,6 +3,7 @@ from webapp.models import Projects, Tasks
 from django.urls import reverse, reverse_lazy
 from webapp.forms import ProjectForm, TaskForm
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 
@@ -19,7 +20,7 @@ class ProjectDetailView(DetailView):
     context_object_name = 'project'
 
     
-class ProjectCreateView(CreateView):
+class ProjectCreateView(LoginRequiredMixin, CreateView):
     template_name = 'project_create.html'
     form_class = ProjectForm
     model = Projects
@@ -28,7 +29,7 @@ class ProjectCreateView(CreateView):
         return reverse('projects')
 
 
-class ProjectTaskCreateView(CreateView):
+class ProjectTaskCreateView(LoginRequiredMixin, CreateView):
     model = Tasks
     form_class = TaskForm
     template_name = 'task_create.html'
@@ -42,7 +43,7 @@ class ProjectTaskCreateView(CreateView):
         return reverse('projects')
 
 
-class ProjectDeleteView(DeleteView):
+class ProjectDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'article_confirm_delete.html'
     model = Projects
     success_url = reverse_lazy('index')
