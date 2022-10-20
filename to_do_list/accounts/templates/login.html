@@ -4,11 +4,9 @@
 
 {% block content %}
     <form action="" method="POST">
-        <div class="form">
+        <div>
             {% csrf_token %}
-
             {% bootstrap_form form %}
-
             {% bootstrap_button button_type="submit" content='Войти' %}
         </div>
     </form>
